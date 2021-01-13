@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+
+
+<project name="DriverDataWS" default="all" basedir=".">
+
+
+
+	<property file="../local.properties" />
+	<property environment="env" />
+	<property name="tomcat.home" value="C:/apache-tomcat-9.0.33" />
+	<property name="dirs.base" value="${basedir}" />
+	<property name="src" value="${dirs.base}/src" />
+	<property name="web" value="${dirs.base}/WebContent" />
+	<property name="webinf" value="${dirs.base}/WebContent/WEB-INF" />
+	<property name="classdir" value="${webinf}/classes" />
+	<property name="libdir" value="${webinf}/lib" />
+
+	<property name="warFile" value="vehiclews.war" />
+
+	<!-- Create Web-inf and classes directories -->
+
+	<!-- Build classpath -->
+	<path id="classpath">
+		<pathelement location="${classdir}" />
+		<!-- So that we can get jndi.properties for InitialContext -->
+		<pathelement location="${basedir}" />
+
+		<fileset dir="${webinf}">
+			<include name="**/*.jar" />
+		</fileset>
+
+		<fileset dir="${libdir}">
+			<include name="**/*.jar" />
+		</fileset>
+
+		<fileset dir="${tomcat.home}/lib">
+			<include name="**/*.jar" />
+		</fileset>
+
+	</path>
+	<property name="build.classpath" refid="classpath" />
+
+	<target name="init">
+		<mkdir dir="${classdir}" />
+        	<copy file="${basedir}/logging.properties" todir="${classdir}/"/>
+	</target>
+
+	<!-- Main target -->
+	<target name="all" depends="init,build,buildWar" />
+
+
+	<!-- Compile Java Files and store in /build/src directory -->
+	<target name="build" depends="init">
+		<echo>Java Version via Ant: ${ant.java.version}</echo>
+		<echo>Java Version System Prop: ${java.version}</echo>
+		<javac srcdir="${src}" destdir="${classdir}" debug="true"
+			includes="**/*.java">
+			<classpath refid="classpath" />
+		</javac>
+	</target>
+
+	<!-- Create the War File -->
+	<target name="buildWar" depends="init">
+
+		<!-- Create war file and copy it to the default directory -->
+		<jar jarfile="${warFile}" basedir="${web}" />
+		<copy file="${basedir}/${warFile}" todir="${tomcat.home}/webapps" />
+
+	</target>
+
+	<target name="clean">
+		<echo message="Cleanup...." />
+		<delete dir="${classdir}" failonerror="false" />
+		<delete file="${tomcat.home}/webapps/${warFile}" failonerror="false" />
+		<delete file="${basedir}/${warFile}" failonerror="false" />
+	</target>
+
+
+
+</project>

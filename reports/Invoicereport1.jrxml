@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" scriptletClass="net.sf.jasperreports.engine.JRDefaultScriptlet" uuid="66100978-48ab-4b03-8963-6f41257d1526">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<scriptlet name="scriptlet" class="NumberToWordsScriptlet"/>
+	<parameter name="tripId" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+ih.invoiceDate,ih.invoiceNumber,ih.tollAmount,ih.parkingAmount,ih.serviceTaxPercent,ih.serviceTaxAmount,ih.preTaxAmount,ih.totalAmount,t.tripId,tt.extraHrCost,tt.extraKmCost,tt.baseRate,s.serviceTypeName,e.name as empName,t.reportingDate,vehtype.type,br.address as bookingAddress,br.bookingTime,c.name as corporateName,c.address as corporateAddress,base.baseName,base.PAN,base.serviceTaxRegNo,base.serviceCategory from InvoiceHeader ih,Trip t,EmployeeCheckInOut ecio,Employee e left join Corporate c on e.corporateId=c.corporateId,BookingRequest br,Vehicle v,VehicleType vehtype,Tariff tt,ServiceType s,OrgBase base,ServiceProvider sp where ih.tripId=t.tripId and ecio.tripId=t.tripId and ecio.employeeId=e.employeeId and e.employeeId=br.employeeId and t.vehicleId=v.vehicleId and v.vehTypeId=vehtype.vehTypeId and br.serviceTypeId=tt.serviceTypeId and
+br.vehTypeId=tt.vehTypeId and br.serviceTypeId=s.serviceTypeId and v.serviceProviderId=sp.serviceProviderId and sp.baseId=base.baseId and t.tripId=$P{tripId}]]>
+	</queryString>
+	<field name="invoiceDate" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="invoiceNumber" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tollAmount" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="parkingAmount" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="serviceTaxPercent" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="serviceTaxAmount" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="preTaxAmount" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="totalAmount" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tripId" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="extraHrCost" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="extraKmCost" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="baseRate" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="serviceTypeName" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="empName" class="java.lang.String"/>
+	<field name="reportingDate" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="type" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="bookingAddress" class="java.lang.String"/>
+	<field name="bookingTime" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="corporateName" class="java.lang.String"/>
+	<field name="corporateAddress" class="java.lang.String"/>
+	<field name="baseName" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PAN" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="serviceTaxRegNo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="serviceCategory" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="corporateAddress_1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{corporateAddress}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="461" splitType="Stretch">
+			<staticText>
+				<reportElement x="34" y="0" width="100" height="20" uuid="e05093f0-19f5-4825-afb2-5dcc3057af34"/>
+				<text><![CDATA[Invoice Date:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="184" y="0" width="100" height="20" uuid="e49bf958-7b47-44a6-b5cd-050de3f354dd"/>
+				<textFieldExpression><![CDATA[$F{invoiceDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="34" y="20" width="100" height="20" uuid="480f578b-05a5-49ce-8a4d-719cc793b618"/>
+				<text><![CDATA[Invoice Number:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="184" y="20" width="100" height="20" uuid="55a2d7f0-d8a9-475f-bcaa-77018c37dd6d"/>
+				<textFieldExpression><![CDATA[$F{invoiceNumber}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="34" y="80" width="100" height="20" uuid="1f98fdbc-68a9-44cf-bee6-1396705faa33"/>
+				<text><![CDATA[Car Used On:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="184" y="80" width="100" height="20" uuid="1b434d72-8973-4abc-8b6d-6650b06127f2"/>
+				<textFieldExpression><![CDATA[$F{reportingDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="34" y="40" width="100" height="20" uuid="24fef649-307b-48cc-9391-09ac57e5ffb2"/>
+				<text><![CDATA[Trip Id:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="34" y="100" width="100" height="20" uuid="7ae87531-d826-49f7-985f-f436c114e300"/>
+				<text><![CDATA[Vehicle Type:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="184" y="100" width="100" height="20" uuid="19e31e27-7cf3-4c9c-b30f-88179e9f2081"/>
+				<textFieldExpression><![CDATA[$F{type}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="34" y="140" width="100" height="20" uuid="b299c8d5-3434-4c61-a8d6-4a5d27bf5e44"/>
+				<text><![CDATA[Booking On:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="184" y="140" width="100" height="20" uuid="3823538d-67de-4631-9ba6-4ca4f0f683df"/>
+				<textFieldExpression><![CDATA[$F{bookingTime}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="34" y="120" width="100" height="20" uuid="35977eae-515e-42ec-a0a5-0bdad5d4c441"/>
+				<text><![CDATA[Duty City:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="184" y="120" width="100" height="20" uuid="183af89c-3b48-442e-8f8e-e93c65e1a209"/>
+				<textFieldExpression><![CDATA[$F{bookingAddress}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="184" y="60" width="100" height="20" uuid="d0969f23-a3a4-421d-95b3-1912709d6336"/>
+				<textFieldExpression><![CDATA[$F{empName}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="172" width="752" height="1" uuid="afada1c8-c5b8-494d-9337-ec3773526e2a"/>
+			</line>
+			<staticText>
+				<reportElement x="34" y="60" width="100" height="20" uuid="380631dc-4a5a-45b4-8221-471d57275316"/>
+				<text><![CDATA[Guest Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="34" y="183" width="100" height="20" isRemoveLineWhenBlank="true" uuid="0c613b65-a6b8-4294-8cf6-4fbfb099406f"/>
+				<text><![CDATA[Company Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="34" y="203" width="100" height="20" isRemoveLineWhenBlank="true" uuid="7c2d08f1-967f-43c7-a52b-c1442436b9fa"/>
+				<text><![CDATA[Company Address:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="160" width="752" height="12" uuid="10d18103-0a61-4926-939c-83391cec3c65"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[INVOICE]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="239" width="589" height="20" uuid="a5f7539f-45c1-4601-94dc-47c4defaa77e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="608" y="239" width="144" height="20" uuid="f2699cec-6617-44f1-92de-fffd51fd1f4e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="489" y="239" width="100" height="20" uuid="773c4acc-30bb-471c-b39a-9eef47343573"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="608" y="239" width="144" height="20" uuid="19f3cd4d-d909-4254-ba02-7ec1099bd34a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="489" y="259" width="100" height="20" uuid="0034d760-cae6-4bcf-92fe-9434e78a9eb9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="279" width="145" height="20" uuid="e9fef07f-a1c5-4b48-8560-001b1ef84d15"/>
+				<text><![CDATA[Rental for At Disposal -]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="299" width="145" height="20" uuid="7ae3ea75-2e36-4224-9e7d-680fbbe273a6"/>
+				<text><![CDATA[Rental for Additional Kms]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="319" width="145" height="20" uuid="eb0c45a7-c45c-47a5-9b95-4cf9c6688ccc"/>
+				<text><![CDATA[Rental for Additional Hours]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="339" width="100" height="20" uuid="5c573c3f-cdde-48a1-9562-1308a2529267"/>
+				<text><![CDATA[Toll Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="359" width="100" height="20" uuid="f75809d8-06df-424b-a9cb-3504de24b128"/>
+				<text><![CDATA[Parking Amount]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="608" y="339" width="100" height="20" uuid="d42912e5-cfbd-40b9-8604-40ac9b1a6bb5"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{tollAmount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="608" y="359" width="100" height="20" uuid="4e7769ad-eda1-4971-9d8b-40793d009ba9"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{parkingAmount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="608" y="299" width="100" height="20" uuid="a066031b-5f80-4db3-bebc-526a095b516a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{extraKmCost}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="608" y="319" width="100" height="20" uuid="aa28570d-971f-41f7-b6a8-4cb1bcdcf173"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{extraHrCost}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="367" y="279" width="56" height="20" uuid="49ab81de-09c8-4464-9a88-f9fe7f5f9b0d"/>
+				<textFieldExpression><![CDATA[$F{serviceTypeName}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="608" y="279" width="100" height="20" uuid="b9805cee-bc17-49d1-8ff5-4c8774c54a51"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{baseRate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="184" y="40" width="100" height="20" uuid="b4ec8edc-f716-4def-9f34-fa20a7e7e565"/>
+				<textFieldExpression><![CDATA[$P{tripId}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="184" y="183" width="441" height="20" uuid="4b3dc0aa-bdfd-425c-94dc-3a1ef6adaba1"/>
+				<textFieldExpression><![CDATA[( $F{corporateName}== null ?  "  " +$F{empName} : $F{corporateName} )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="222" y="384" width="100" height="15" uuid="a3842aa7-0e33-47ff-8ff6-c2744398aa22"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="608" y="384" width="100" height="15" uuid="fa58cb8d-f9c1-4fb5-93dc-0b879f14b4a2"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{preTaxAmount}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="222" y="399" width="75" height="20" uuid="f847592f-6d34-4c02-bb6b-257015664b0d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Service Tax @]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="297" y="399" width="25" height="20" uuid="0f1a6f4e-6f17-44f1-8161-e87920379968"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{serviceTaxPercent}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="322" y="399" width="45" height="20" uuid="ff922cfd-1414-4479-af20-336190005922"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="608" y="399" width="100" height="20" uuid="673dece5-68cc-4eb6-91cf-1baa7bd5d34a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{serviceTaxAmount}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="420" width="752" height="1" uuid="86eb637e-fd04-486e-97c9-f3747b4ddef4"/>
+			</line>
+			<staticText>
+				<reportElement x="222" y="420" width="100" height="20" uuid="bf895453-248b-4950-8dbe-e7c8074f393d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grand Total(/20B9)]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="608" y="420" width="100" height="20" uuid="66055eb3-b2fb-4676-8d3e-cb628cd1a577"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalAmount}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="34" y="439" width="121" height="20" uuid="dd743f8e-4f26-46e9-adb3-70a0f995378f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount in Words:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="222" y="439" width="386" height="20" uuid="e2399e6d-ee51-4ac0-bb02-777a0e7453f7"/>
+				<textFieldExpression><![CDATA[$P{scriptlet_SCRIPTLET}.convertNumberToWords($F{totalAmount})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="184" y="203" width="441" height="20" uuid="59fd739b-d34b-4bab-92f8-c40123ef147f"/>
+				<textFieldExpression><![CDATA[$F{corporateAddress}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<lastPageFooter>
+		<band height="110">
+			<textField>
+				<reportElement x="184" y="20" width="100" height="20" uuid="e4c4844e-473e-4fde-8da5-4f0b6a1866c0"/>
+				<textFieldExpression><![CDATA[$F{PAN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="184" y="40" width="100" height="20" uuid="ae63cf8c-772a-485b-8853-2d078e013aa1"/>
+				<textFieldExpression><![CDATA[$F{serviceTaxRegNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="184" y="60" width="100" height="20" uuid="862a1dff-d715-4d33-b6ba-a1f51aaaaa82"/>
+				<textFieldExpression><![CDATA[$F{serviceCategory}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="34" y="20" width="100" height="20" uuid="75853a1a-26f5-4d0a-8af0-58b3c646750e"/>
+				<text><![CDATA[PAN No.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="34" y="40" width="150" height="20" uuid="abbdd422-3d38-4fcc-8646-f33961bbdcda"/>
+				<text><![CDATA[Service Tax Registration No.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="34" y="60" width="150" height="20" uuid="db34ad77-5a4b-4e8f-bc93-81d1b03b4852"/>
+				<text><![CDATA[Category of Service :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="34" y="0" width="250" height="20" uuid="24dae668-1897-434e-b755-b98388424d28"/>
+				<textFieldExpression><![CDATA[$F{baseName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="34" y="88" width="424" height="22" uuid="06b88084-25a4-48df-bb30-0163dbeb627b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Computer generated invoice. Does not require any signature.]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
+</jasperReport>

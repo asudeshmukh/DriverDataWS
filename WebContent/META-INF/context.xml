@@ -1,0 +1,11 @@
+<Context>
+<Resource name="jdbc/Odocon"
+auth="Container"
+type="javax.sql.DataSource"
+username="odocon"
+password="odocon"
+driverClassName="com.mysql.jdbc.Driver"
+url="jdbc:mysql://localhost:3306/odocon"
+maxActive="15"
+maxIdle="3"/>
+</Context>
